@@ -11,11 +11,11 @@ public class MonthPrinter {
 
 
     private MonthPrinter(int year, int month) {
+        this.year = year;
+        this.month = month;
         this.totalDays = getTotalDays(year, month);
         this.startDayIndex = getStartDay(totalDays);
         this.numberOfDaysInMonth = getNumberOfDaysInMonth(year, month);
-        this.year = year;
-        this.month = month;
     }
 
     //use factory class to get an instance. sole constructor set to private
