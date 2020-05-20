@@ -3,11 +3,27 @@ package month_printer;
 //prints input month to console
 public class MonthPrinter {
 
-    public static MonthPrinter getInstance() {
-        return new MonthPrinter();
+    private final int year;
+    private final int month;
+    private final int totalDays;
+    private final int startDayIndex;
+    private final int numberOfDaysInMonth;
+
+
+    private MonthPrinter(int year, int month) {
+        this.totalDays = getTotalDays(year, month);
+        this.startDayIndex = getStartDay(totalDays);
+        this.numberOfDaysInMonth = getNumberOfDaysInMonth(year, month);
+        this.year = year;
+        this.month = month;
     }
 
-    public void printMonth(int year, int month) {
+    //use factory class to get an instance. sole constructor set to private
+    public static MonthPrinter getInstance(int year, int month) {
+        return new MonthPrinter(year, month);
+    }
+
+    public void printMonth() {
         validateInput(year, month);
         printMonthMeader(year, month);
         printMonthBody(year, month);
@@ -31,11 +47,6 @@ public class MonthPrinter {
     }
 
     private void printMonthBody(int year, int month) {
-
-        var totalDays = getTotalDays(year, month);
-        var startDayIndex = getStartDay(totalDays);
-        var numberOfDaysInMonth = getNumberOfDaysInMonth(year, month);
-
         //put caret in place to get the 1st day of month as the right day of week
         for (int caret = 0; caret < startDayIndex; caret++) {
             System.out.print("     ");
@@ -51,8 +62,8 @@ public class MonthPrinter {
 
         // get a new line underneath the printout
         // if you didn't just get one with the last printed day
-        //(subtract 1 in expression evaluated as condition because currentDay was incremented right before
-        // it failed the condition in loop above
+        //(subtract 1 in expression evaluated as condition because currentDay
+        // was incremented right before it failed the condition in loop above
         if ((currentDay - 1 + startDayIndex) % 7 != 0) {
             System.out.println();
         }
