@@ -8,11 +8,9 @@ public class MonthPrinter {
     }
 
     public void printMonth(int year, int month) {
-
         validateInput(year, month);
         printMonthMeader(year, month);
         printMonthBody(year, month);
-        System.out.println();
     }
 
     private void validateInput(int year, int month) {
@@ -20,7 +18,8 @@ public class MonthPrinter {
             throw new IllegalArgumentException("Year must not be below 1800");
         }
         if (month < 1 || month > 12) {
-            throw new IllegalArgumentException("Month must be in the range of 1 - 12 (Jan = 1, Feb = 2 etc.)");
+            throw new IllegalArgumentException(
+                    "Month must be in the range of 1 - 12 (1 for Jan, 2 for Feb etc.)");
         }
     }
 
@@ -37,18 +36,29 @@ public class MonthPrinter {
         var startDayIndex = getStartDay(totalDays);
         var numberOfDaysInMonth = getNumberOfDaysInMonth(year, month);
 
-        for (int i = 0; i < startDayIndex; i++) {
+        //put caret in place to get the 1st day of month as the right day of week
+        for (int caret = 0; caret < startDayIndex; caret++) {
             System.out.print("     ");
         }
 
-        int i;
-        for (i = 1; i <= numberOfDaysInMonth; i++) {
-            if ((i + startDayIndex) % 7 == 0) {
-                System.out.printf("%3d\n", i);
+        int currentDay;
+        for (currentDay = 1; currentDay <= numberOfDaysInMonth; currentDay++) {
+            if ((currentDay + startDayIndex) % 7 == 0) {
+                System.out.printf("%3d\n", currentDay);
             } else
-                System.out.printf("%3d  ", i);
+                System.out.printf("%3d  ", currentDay);
+        }
+
+        // get a new line underneath the printout
+        // if you didn't just get one with the last printed day
+        //(subtract 1 in expression evaluated as condition because currentDay was incremented right before
+        // it failed the condition in loop above
+        if ((currentDay - 1 + startDayIndex) % 7 != 0) {
+            System.out.println();
         }
     }
+
+
 
     private String getMonthName(int month) {
         return switch (month) {
@@ -63,9 +73,7 @@ public class MonthPrinter {
             case 9 -> "SEPTEMBER";
             case 10 -> "OCTOBER";
             case 11 -> "NOVEMBER";
-            case 12 -> "DECEMBER";
-            default -> throw new IllegalArgumentException(
-                    "Enter a value between 1 and 12");
+            default -> "DECEMBER";
         };
     }
 
