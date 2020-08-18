@@ -25,7 +25,7 @@ public class MonthPrinter {
 
     public void printMonth() {
         validateInput(year, month);
-        printMonthMeader(year, month);
+        printMonthHeader(year, month);
         printMonthBody(year, month);
     }
 
