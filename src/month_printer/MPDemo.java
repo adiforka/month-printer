@@ -3,7 +3,7 @@ package month_printer;
 public class MPDemo {
     public static void main(String[] args) {
 
-        MonthPrinter printer = MonthPrinter.getInstance(2020, 5);
+        MonthPrinter printer = MonthPrinter.getInstance(1983, 12);
         printer.printMonth();
 
         printer = MonthPrinter.getInstance(1999, 12);

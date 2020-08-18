@@ -95,9 +95,7 @@ public class MonthPrinter {
     private int getTotalDays(int year, int month) {
         int totalDays = 0;
         for (int i = 1800; i < year; i++) {
-            if (isLeapYear(i)) {
-                totalDays += 366;
-            } else totalDays += 365;
+            totalDays += isLeapYear(year) ? 366 : 365;
         }
 
         for (int i = 1; i < month; i++) {
@@ -107,11 +105,12 @@ public class MonthPrinter {
     }
 
     private int getNumberOfDaysInMonth(int year, int month) {
-        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
-            return 31;
-        } else if (month == 4 || month == 6 || month == 9 || month == 11) {
-            return 30;
-        } else return (month == 2 && isLeapYear(year)) ? 29 : 28;
+        return switch (month) {
+            case 1, 3, 5, 7, 8, 10, 12 -> 31;
+            case 4, 6, 9, 11 -> 30;
+            case 2 -> isLeapYear(year) ? 29 : 28;
+            default -> throw new IllegalStateException("Unexpected value: " + month);
+        };
     }
 
     private boolean isLeapYear(int year) {
