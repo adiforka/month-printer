@@ -39,7 +39,7 @@ public class MonthPrinter {
         }
     }
 
-    private void printMonthMeader(int year, int month) {
+    private void printMonthHeader(int year, int month) {
         System.out.println(getMonthName(month) + " " + year);
         System.out.println("------------------------------");
         System.out.printf("%3s  %3s  %3s  %3s  %3s  %3s  %3s\n",
