@@ -18,7 +18,7 @@ public class MonthPrinter {
         this.numberOfDaysInMonth = getNumberOfDaysInMonth(year, month);
     }
 
-    //use factory class to get an instance. sole constructor set to private
+    //use factory method to get an instance. sole constructor set to private
     public static MonthPrinter getInstance(int year, int month) {
         return new MonthPrinter(year, month);
     }
@@ -68,8 +68,6 @@ public class MonthPrinter {
             System.out.println();
         }
     }
-
-
 
     private String getMonthName(int month) {
         return switch (month) {
